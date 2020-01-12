@@ -1,0 +1,72 @@
+
+def decision(action, number_one, number_two):
+    if action == "+":
+        result = number_one + number_two
+    elif action == "-":
+        result = number_one - number_two
+    elif action == "*":
+        result = number_one * number_two
+    elif action == "/":         
+        try:
+            number_one / number_two  
+        except (ZeroDivisionError):
+            result = "На 0 делить нельзя!"
+        else:
+            result = number_one / number_two
+
+    return result 
+
+while True:
+      question = input("Порешаем? y/n")
+      if question == "y":
+          user_input = input("Введите арифметическую операцию, пробел, целое число, пробел, целое число")
+
+          user_input_list = user_input.split(" ")
+          if len(user_input_list) != 3:
+              print(f"Нужно ввести три значения, а Вы ввели {len(user_input_list)}") 
+              break
+
+          operation = user_input_list[0]
+          assert(operation in ["+","-","*","/"]), "Введите другую операцию: +,-,*,/ и не забудьте поставить после неё пробел" 
+
+          try:
+              first = int(user_input_list[1])
+          except ValueError:
+              print(f" {user_input_list[1]} это неправильное число")
+              first = int(input("Ещё раз введите первое число"))    
+
+          try:    
+              second = int(user_input_list[2])  
+          except ValueError:
+              print(f" {user_input_list[2]} это неправильное число")    
+              second = int(input("Ещё раз введите второе число"))
+          
+          try:
+              answer = decision(operation,first,second)    
+              print(answer)
+          except Exception as e:
+              print (e)
+          
+          
+      else:
+          break
+ 
+print()
+print("задача 3")
+documents = [
+        {"type": "passport", "number": "2207 876234", "name": "Василий Гупкин"},
+        {"type": "invoice", "number": "11-2", "name": "Геннадий Покемонов"},
+        {"type": "insurance", "number": "10006"}
+      ]
+
+
+#Вывод списка всех документов
+def output_documents(doc_list):
+    for document in doc_list:
+        try:
+            print(document["type"], document["number"], document["name"])
+        except KeyError:
+            print(document["type"], document["number"], "а в этом документе имя не указано")
+
+
+output_documents(documents)
